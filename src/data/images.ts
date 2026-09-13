@@ -1,0 +1,37 @@
+export const images = {
+  hero: {
+    src: "/images/E92657BE-C064-42B5-BD72-5CC405A6A726.JPG.webp",
+    alt: "Ambiente de evento decorado pela Lineareco com iluminação acolhedora",
+  },
+  about: {
+    primary: {
+      src: "/images/IMG_0056.webp",
+      alt: "Mesa de evento decorada com detalhes pela Lineareco",
+    },
+    secondary: {
+      src: "/images/25AF9764-1BE1-4720-BDB3-DDBE308459AD.webp",
+      alt: "Detalhe de decoração em evento da Lineareco",
+    },
+    tertiary: {
+      src: "/images/09080AE5-3954-4696-9AFA-2ABBFEF8FE00.webp",
+      alt: "Celebração decorada pela equipe Lineareco",
+    },
+  },
+  testimonials: {
+    src: "/images/9166052F-F883-472C-BB03-C3B1650AAA85.JPG.webp",
+    alt: "Recepção de evento decorada pela Lineareco",
+  },
+  footer: {
+    src: "/images/5B24BA6A-751C-4D39-9CE2-3C36F994D31F.webp",
+    alt: "Celebração realizada pela Lineareco",
+  },
+} as const;
+
+export const avatars = {
+  juliana:
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80",
+  carlosMarina:
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=160&q=80",
+  amanda:
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=160&q=80",
+} as const;

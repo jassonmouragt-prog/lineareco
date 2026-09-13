@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-offwhite: #f5f1ea;
+  --color-cream: #eee8de;
+  --color-ink: #101314;
+  --color-ink2: #151819;
+  --color-brown: #715e4b;
+  --color-taupe: #9a8874;
+  --color-beige: #c4b19d;
+  --color-gold: #b49a7d;
+  --color-pure: #ffffff;
+
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-manrope);
+
+  --shadow-soft: 0 18px 40px -24px rgb(16 19 20 / 0.22);
+  --shadow-card: 0 14px 30px -20px rgb(16 19 20 / 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background: var(--color-offwhite);
+  color: var(--color-ink);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(154 136 116 / 0.35);
+  color: #101314;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+#smooth-wrapper,
+#smooth-content {
+  min-height: 100vh;
+}
+
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.float-card {
+  animation: float-card 6s ease-in-out infinite;
+  will-change: transform;
+}
