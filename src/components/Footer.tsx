@@ -47,11 +47,13 @@ export default function Footer() {
               <div>
                 <Reveal>
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30">
-                      <span className="font-serif text-xl leading-none text-white">
-                        L
-                      </span>
-                    </span>
+                    <Image
+                      src="/logo.png"
+                      alt="Lineareco — Decoração e eventos"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 object-contain"
+                    />
                     <span className="font-serif text-[22px] tracking-[0.16em] text-white">
                       LINEARECO
                     </span>
