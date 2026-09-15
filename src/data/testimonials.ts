@@ -1,32 +1,26 @@
-import { avatars } from "@/data/images";
-
 export interface Testimonial {
-  quote: string;
-  name: string;
-  event: string;
-  avatar: string;
+  title: string;
+  images: string[];
 }
 
 export const testimonials: Testimonial[] = [
   {
-    quote:
-      "A Lineareco superou todas as nossas expectativas! Cada detalhe foi pensado com muito carinho, e o resultado foi um evento impecável e inesquecível.",
-    name: "Juliana M.",
-    event: "Aniversário de 30 anos",
-    avatar: avatars.juliana,
+    title: "Aniversário Intimista Duda Guedes",
+    images: ["/images/depoimentos/duda-guedes-01.jpg"],
   },
   {
-    quote:
-      "Profissionais incríveis! Organização, pontualidade e uma decoração que deixou todos os convidados encantados. Recomendo de olhos fechados!",
-    name: "Carlos & Marina",
-    event: "Casamento",
-    avatar: avatars.carlosMarina,
+    title: "Aniversário Intimista Hemily Beatriz",
+    images: ["/images/depoimentos/hemily-beatriz-01.jpg"],
   },
   {
-    quote:
-      "Atendimento maravilhoso do início ao fim. A Lineareco transmite confiança e transforma ideias em experiências lindas e cheias de significado.",
-    name: "Amanda L.",
-    event: "Festa Infantil",
-    avatar: avatars.amanda,
+    title: "Casamento Rebeca e Mateus",
+    images: [
+      "/images/depoimentos/rebeca-mateus-01.jpg",
+      "/images/depoimentos/rebeca-mateus-02.jpg",
+    ],
+  },
+  {
+    title: "Jantar de Noivado Viviane & Damyhonn",
+    images: ["/images/depoimentos/viviane-damyhonn-01.jpg"],
   },
 ];

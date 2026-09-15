@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Quote } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { testimonials } from "@/data/testimonials";
 import { images } from "@/data/images";
@@ -32,65 +31,45 @@ export default function Testimonials() {
           </Reveal>
           <Reveal delay={90}>
             <h2 className="mt-4 font-serif text-[36px] leading-[1.05] font-medium text-white md:text-[42px]">
-              Quem viveu, recomenda.
+              Experiências reais,
+              <br className="hidden md:block" /> memórias que ficam.
             </h2>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
+        <div className="mt-14 columns-1 gap-5 md:columns-2 lg:columns-3">
           {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 110}>
-              <div
-                className="float-card"
-                style={{ animationDelay: `${i * 1.2}s` }}
-              >
-                <article
-                  className="flex h-full flex-col rounded-[14px] p-6 transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  background: "rgba(50,45,40,.65)",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,.18)",
-                }}
-              >
-                <Quote
-                  className="h-7 w-7 text-gold/70"
-                  aria-hidden
-                  strokeWidth={1.2}
-                />
-                <p className="mt-4 text-[13.5px] leading-[1.7] text-white/85">
-                  {t.quote}
-                </p>
-                <div className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5">
+            <Reveal key={t.title} delay={i * 90} className="mb-5">
+              <figure className="group overflow-hidden rounded-[14px] border border-white/15 bg-black/20">
+                <div className="relative">
                   <Image
-                    src={t.avatar}
-                    alt={`Foto de ${t.name}`}
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
+                    src={t.images[0]}
+                    alt={`Depoimento: ${t.title}`}
+                    width={739}
+                    height={1600}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  <div>
-                    <p className="text-[13px] font-semibold text-white">
-                      {t.name}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                  <figcaption className="absolute inset-x-0 bottom-0 p-5">
+                    <span className="inline-block h-px w-8 bg-gold" aria-hidden />
+                    <p className="mt-2.5 font-serif text-[19px] leading-snug font-medium text-white">
+                      {t.title}
                     </p>
-                    <p className="text-[11px] text-white/60">{t.event}</p>
-                  </div>
+                  </figcaption>
                 </div>
-                </article>
-                </div>
-              </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-10 flex justify-center gap-2.5">
-          {testimonials.map((t, i) => (
-            <span
-              key={t.name}
-              aria-hidden
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === 0 ? "w-7 bg-gold" : "w-1.5 bg-white/30"
-              }`}
-            />
+                {t.images.length > 1 && (
+                  <Image
+                    src={t.images[1]}
+                    alt={`Depoimento: ${t.title}`}
+                    width={739}
+                    height={1600}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="h-auto w-full border-t border-white/15 object-cover"
+                  />
+                )}
+              </figure>
+            </Reveal>
           ))}
         </div>
       </div>

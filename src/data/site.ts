@@ -1,6 +1,6 @@
 export const WHATSAPP_NUMBER = "5584999999999";
-export const INSTAGRAM_HANDLE = "@camilly6568";
-export const INSTAGRAM_URL = "https://www.instagram.com/camilly6568";
+export const INSTAGRAM_HANDLE = "@lineareco";
+export const INSTAGRAM_URL = "https://www.instagram.com/lineareco";
 
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Olá! Quero solicitar um orçamento da Lineareco.";
