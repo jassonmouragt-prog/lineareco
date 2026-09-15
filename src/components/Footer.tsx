@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Check, MapPin } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import { INSTAGRAM_URL, whatsappLink } from "@/data/site";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, whatsappLink } from "@/data/site";
 import { images } from "@/data/images";
 import { galleryImages } from "@/data/gallery";
 
@@ -72,7 +72,7 @@ export default function Footer() {
                     className="mt-3 flex items-center gap-2 text-[12px] text-white/60 transition-colors hover:text-white"
                   >
                     <InstagramIcon className="h-4 w-4 text-gold" aria-hidden />
-                    @camilly6568
+                    {INSTAGRAM_HANDLE}
                   </a>
                 </Reveal>
               </div>

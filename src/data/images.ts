@@ -18,8 +18,8 @@ export const images = {
     },
   },
   testimonials: {
-    src: "/images/9166052F-F883-472C-BB03-C3B1650AAA85.JPG.webp",
-    alt: "Recepção de evento decorada pela Lineareco",
+    src: "/images/E92657BE-C064-42B5-BD72-5CC405A6A726.JPG.webp",
+    alt: "Ambiente de evento decorado pela Lineareco com iluminação acolhedora",
   },
   footer: {
     src: "/images/5B24BA6A-751C-4D39-9CE2-3C36F994D31F.webp",
