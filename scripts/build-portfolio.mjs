@@ -2,22 +2,28 @@
  * Gera src/data/gallery.generated.ts a partir das pastas em
  * public/images/portfolio/.
  *
- * Para o cliente leigo, a regra e uma coisa so: uma pasta = um projeto,
+ * Para quem edita pelo celular, a regra e uma coisa so: uma pasta = um projeto,
  * e as fotos dentro da pasta sao as fotos daquele projeto. Nada mais.
  *
  *   public/images/portfolio/projeto-01/
- *     01.webp          <- a primeira foto (capa do projeto)
+ *     01.webp          <- a capa do projeto (primeiro arquivo da lista)
  *     02.webp
- *     projeto.json     <- opcional: titulo, categoria e textos das fotos
+ *     projeto.txt      <- opcional: "nome: ..." e "tipo: ..."
+ *     fotos.txt        <- opcional: a ordem das fotos, uma por linha
  *
- * O script nao usa nenhuma dependencia externa: as dimensoes das imagens
- * sao lidas direto do cabecalho do arquivo, para nao precisar de modulos
- * nativos (que quebram em maquinas e CI diferentes).
+ * Os dois arquivos .txt existem porque sao faceis de editar no GitHub pelo
+ * celular: nao tem chave, virgula, aspa ou colchete — nao existe sintaxe que
+ * possa quebrar o site. Se algo estiver errado, o script avisa e usa o padrao,
+ * em vez de impedir a publicacao.
+ *
+ * O script nao usa nenhuma dependencia externa: as dimensoes das imagens sao
+ * lidas direto do cabecalho do arquivo, para nao precisar de modulos nativos
+ * (que quebram em maquinas e CI diferentes).
  *
  * Rode com:  npm run portfolio
  */
 
-import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -26,8 +32,12 @@ const SOURCE_DIR = join(ROOT, "public", "images", "portfolio");
 const OUTPUT_FILE = join(ROOT, "src", "data", "gallery.generated.ts");
 
 const SUPPORTED = [".webp", ".jpg", ".jpeg", ".png"];
-const IGNORED = [".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"];
+const IGNORED_NAMES = [".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"];
+const IGNORED_EXTENSIONS = [".txt"];
+const DEFAULT_CATEGORY = "Celebração";
+
 const problems = [];
+const warnings = [];
 
 /* ------------------------------------------------------------------ */
 /* Leitura de dimensoes sem dependencia                                */
@@ -87,7 +97,6 @@ function readJpegSize(buffer) {
 
     const marker = buffer[offset + 1];
 
-    // Marcadores sem payload: fill byte e marcadores de reinicio.
     if (marker === 0xff) {
       offset += 1;
       continue;
@@ -127,6 +136,60 @@ function readImageSize(file) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Leitura dos arquivos de texto                                       */
+/* ------------------------------------------------------------------ */
+
+function readText(file) {
+  try {
+    return readFileSync(file, "utf8");
+  } catch {
+    return null;
+  }
+}
+
+/** "nome: Casamento" -> { nome: "Casamento" }. Sem chaves, sem aspas. */
+function parseKeyValue(text) {
+  const pairs = {};
+
+  for (const line of text.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (trimmed === "" || trimmed.startsWith("#")) continue;
+
+    const separator = trimmed.indexOf(":");
+    if (separator === -1) continue;
+
+    pairs[trimmed.slice(0, separator).trim().toLowerCase()] = trimmed
+      .slice(separator + 1)
+      .trim();
+  }
+
+  return pairs;
+}
+
+/**
+ * "01.webp | descrição da foto | 50% 30%" -> arquivo, alt e enquadramento.
+ * As partes depois do primeiro "|" sao opcionais.
+ */
+function parsePhotoList(text) {
+  const entries = [];
+
+  for (const line of text.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (trimmed === "" || trimmed.startsWith("#")) continue;
+
+    const parts = trimmed.split("|").map((part) => part.trim());
+
+    entries.push({
+      file: parts[0],
+      alt: parts[1] ?? "",
+      position: parts[2] ?? "",
+    });
+  }
+
+  return entries;
+}
+
+/* ------------------------------------------------------------------ */
 /* Pastas = projetos                                                   */
 /* ------------------------------------------------------------------ */
 
@@ -143,45 +206,13 @@ function toTitle(slug) {
     .join(" ");
 }
 
-function readProjectConfig(folder) {
-  const configFile = join(folder, "projeto.json");
-
-  if (!existsSafe(configFile)) return {};
-
-  let parsed;
-  try {
-    parsed = JSON.parse(readFileSync(configFile, "utf8"));
-  } catch (error) {
-    problems.push(
-      `${basename(folder)}/projeto.json tem JSON inválido (${error.message}). ` +
-        `Confira se há vírgula sobrando no final.`,
-    );
-    return {};
-  }
-
-  if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
-    problems.push(`${basename(folder)}/projeto.json deve conter um objeto entre { }.`);
-    return {};
-  }
-
-  return parsed;
-}
-
-function existsSafe(file) {
-  try {
-    return statSync(file).isFile();
-  } catch {
-    return false;
-  }
-}
-
 function listPhotos(folder) {
   const names = readdirSync(folder, { withFileTypes: true })
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
-    .filter((name) => name.toLowerCase() !== "projeto.json")
     .filter((name) => !name.startsWith("."))
-    .filter((name) => !IGNORED.includes(name.toLowerCase()));
+    .filter((name) => !IGNORED_NAMES.includes(name.toLowerCase()))
+    .filter((name) => !IGNORED_EXTENSIONS.includes(extname(name).toLowerCase()));
 
   // Qualquer arquivo que nao seja imagem suportada vira erro em vez de ser
   // descartado em silencio: uma foto que some do site sem aviso e pior do que
@@ -203,7 +234,59 @@ function listPhotos(folder) {
     .sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }));
 }
 
+function orderPhotos(folder, onDisk) {
+  const listText = readText(join(folder, "fotos.txt"));
+
+  // Sem fotos.txt, a ordem alfabetica dos arquivos ja e a esperada.
+  if (listText === null) {
+    return onDisk.map((file) => ({ file, alt: "", position: "" }));
+  }
+
+  const byLowerName = new Map(onDisk.map((file) => [file.toLowerCase(), file]));
+  const ordered = [];
+  const used = new Set();
+
+  for (const entry of parsePhotoList(listText)) {
+    const actual = byLowerName.get(entry.file.toLowerCase());
+
+    if (actual === undefined) {
+      warnings.push(
+        `${basename(folder)}/fotos.txt cita "${entry.file}", que não está na pasta. ` +
+          `Confira o nome — se a foto for nova, acrescente uma linha para ela.`,
+      );
+      continue;
+    }
+    if (used.has(actual)) {
+      warnings.push(`${basename(folder)}/fotos.txt repete "${actual}". Mostrada uma vez só.`);
+      continue;
+    }
+
+    used.add(actual);
+    ordered.push({ file: actual, alt: entry.alt, position: entry.position });
+  }
+
+  for (const file of onDisk) {
+    if (!used.has(file)) {
+      warnings.push(
+        `${basename(folder)}/${file} não está em fotos.txt. Colocada no fim do projeto.`,
+      );
+      ordered.push({ file, alt: "", position: "" });
+    }
+  }
+
+  return ordered;
+}
+
+const ALT_TEMPLATES = [
+  (title) => `Ambientação de ${title} realizada pela Linear & Co.`,
+  (title) => `Mesa de ${title} decorada pela Linear & Co.`,
+  (title) => `Detalhe de decoração em ${title} pela Linear & Co.`,
+  (title) => `Arranjos e ornamentos de ${title} pela Linear & Co.`,
+];
+
 function buildProjects() {
+  mkdirSync(SOURCE_DIR, { recursive: true });
+
   const folders = readdirSync(SOURCE_DIR, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
@@ -219,55 +302,46 @@ function buildProjects() {
 
   return folders.map((folderName, index) => {
     const folder = join(SOURCE_DIR, folderName);
-    const config = readProjectConfig(folder);
-    const photos = listPhotos(folder);
-    const title =
-      typeof config.title === "string" && config.title.trim() !== ""
-        ? config.title.trim()
-        : toTitle(folderName);
-    const category =
-      typeof config.category === "string" && config.category.trim() !== ""
-        ? config.category.trim()
-        : "Celebração";
-    const alts = config.alts && typeof config.alts === "object" ? config.alts : {};
-    const positions = config.positions && typeof config.positions === "object" ? config.positions : {};
+    const details = parseKeyValue(readText(join(folder, "projeto.txt")) ?? "");
+    const onDisk = listPhotos(folder);
+    const ordered = orderPhotos(folder, onDisk);
 
-    if (photos.length === 0) {
+    if (onDisk.length === 0) {
       problems.push(
         `${folderName} não tem nenhuma foto. Coloque ao menos uma imagem ou apague a pasta.`,
       );
     }
 
-    const label = `PROJETO ${String(index + 1).padStart(2, "0")}`;
+    const title = details.nome !== undefined && details.nome !== ""
+      ? details.nome
+      : toTitle(folderName);
+    const category = details.tipo !== undefined && details.tipo !== ""
+      ? details.tipo
+      : DEFAULT_CATEGORY;
 
     return {
       id: folderName,
-      label,
+      label: `PROJETO ${String(index + 1).padStart(2, "0")}`,
       title,
       category,
-      photos: photos.map((file) => {
-        const size = readImageSize(join(folder, file));
+      photos: ordered.map((entry, photoIndex) => {
+        const size = readImageSize(join(folder, entry.file));
 
         if (!size || !size.width || !size.height) {
           problems.push(
-            `Não consegui ler as dimensões de ${folderName}/${file}. ` +
+            `Não consegui ler as dimensões de ${folderName}/${entry.file}. ` +
               `Se for HEIC ou AVIF, converta para .webp antes de subir.`,
           );
         }
 
-        const fallbackAlt = `${title} — foto ${file.replace(/\.\w+$/, "")} pela Linear & Co.`;
-        const position = positions[file];
+        const fallback = ALT_TEMPLATES[photoIndex % ALT_TEMPLATES.length](title);
 
         return {
-          src: `/images/portfolio/${folderName}/${file}`,
-          alt: typeof alts[file] === "string" && alts[file].trim() !== ""
-            ? alts[file].trim()
-            : fallbackAlt,
+          src: `/images/portfolio/${folderName}/${entry.file}`,
+          alt: entry.alt !== "" ? entry.alt : fallback,
           width: size?.width ?? 0,
           height: size?.height ?? 0,
-          ...(typeof position === "string" && position.trim() !== ""
-            ? { position: position.trim() }
-            : {}),
+          ...(entry.position !== "" ? { position: entry.position } : {}),
         };
       }),
     };
@@ -308,11 +382,13 @@ ${photos}
 
   return `// ESTE ARQUIVO É GERADO AUTOMATICAMENTE. NÃO EDITE NA MÃO.
 //
-// Fonte: public/images/portfolio/<projeto>/<foto>
+// Fonte: public/images/portfolio/<projeto>/
 // Gere com: npm run portfolio   (ou só commitando as fotos, o CI refaz)
 //
-// Uma pasta = um projeto. A ordem das fotos é a ordem alfabética dos
-// arquivos, então 01.webp é a capa, 02.webp a segunda foto, e assim por diante.
+// Uma pasta = um projeto. A ordem das fotos é a de fotos.txt, e na falta dela
+// a ordem alfabética dos arquivos (01.webp é a capa, 02.webp a segunda, etc).
+// O nome e o tipo do projeto vêm de projeto.txt. Todos os arquivos de texto são
+// opcionais: sem eles o site usa o nome da pasta e descrições automáticas.
 
 export interface PortfolioPhoto {
   src: string;
@@ -337,8 +413,9 @@ ${body}
 }
 
 function main() {
-  mkdirSync(SOURCE_DIR, { recursive: true });
   const projects = buildProjects();
+
+  for (const warning of warnings) console.warn(`  ! ${warning}`);
 
   if (problems.length > 0) {
     console.error("\n✗ Não consegui gerar o portfólio:\n");
@@ -348,13 +425,13 @@ function main() {
   }
 
   const source = renderSource(projects);
-  const current = existsSafe(OUTPUT_FILE) ? readFileSync(OUTPUT_FILE, "utf8") : "";
+  const current = readText(OUTPUT_FILE);
 
   if (current === source) {
     console.log("✓ Portfólio já estava atualizado — nada a fazer.");
   } else {
     writeFileSync(OUTPUT_FILE, source);
-    console.log(`✓ src/data/gallery.generated.ts atualizado.`);
+    console.log("✓ src/data/gallery.generated.ts atualizado.");
   }
 
   const totalPhotos = projects.reduce((sum, project) => sum + project.photos.length, 0);

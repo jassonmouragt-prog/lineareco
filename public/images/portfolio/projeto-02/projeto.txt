@@ -1,0 +1,2 @@
+nome: Projeto 02
+tipo: Celebração

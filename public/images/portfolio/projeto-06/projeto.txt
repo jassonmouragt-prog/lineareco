@@ -1,0 +1,2 @@
+nome: Projeto 06
+tipo: Celebração

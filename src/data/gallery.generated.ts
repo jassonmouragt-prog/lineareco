@@ -1,10 +1,12 @@
 // ESTE ARQUIVO É GERADO AUTOMATICAMENTE. NÃO EDITE NA MÃO.
 //
-// Fonte: public/images/portfolio/<projeto>/<foto>
+// Fonte: public/images/portfolio/<projeto>/
 // Gere com: npm run portfolio   (ou só commitando as fotos, o CI refaz)
 //
-// Uma pasta = um projeto. A ordem das fotos é a ordem alfabética dos
-// arquivos, então 01.webp é a capa, 02.webp a segunda foto, e assim por diante.
+// Uma pasta = um projeto. A ordem das fotos é a de fotos.txt, e na falta dela
+// a ordem alfabética dos arquivos (01.webp é a capa, 02.webp a segunda, etc).
+// O nome e o tipo do projeto vêm de projeto.txt. Todos os arquivos de texto são
+// opcionais: sem eles o site usa o nome da pasta e descrições automáticas.
 
 export interface PortfolioPhoto {
   src: string;

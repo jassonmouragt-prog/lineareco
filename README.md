@@ -10,32 +10,49 @@ npm run build
 npm run lint
 ```
 
-## Portfólio: o cliente edita sem tocar em código
+## Portfólio: o cliente edita pelo celular
 
 O portfólio **não** é código editado à mão. A fonte da verdade é o sistema de
 pastas:
 
 ```
 public/images/portfolio/projeto-01/
-├── 01.webp          <- capa do projeto
+├── 01.webp          <- a capa (primeira linha do fotos.txt)
 ├── 02.webp
-└── projeto.json     <- opcional: título, categoria e textos das fotos
+├── projeto.txt      <- "nome: ..." e "tipo: ..."
+└── fotos.txt        <- ordem das fotos, uma por linha: "01.webp | descrição"
 ```
 
 Uma pasta = um projeto. As fotos dentro da pasta são as fotos daquele projeto.
-A ordem é a ordem alfabética dos arquivos.
+
+Os dois `.txt` são **linhas de texto simples**, sem chave, vírgula, aspa ou
+colchete. Isso é deliberado: é o que dá para editar pelo celular com o editor do
+GitHub sem risco de quebrar o site. Trocar a capa é **mover uma linha** em
+`fotos.txt` — não precisa renomear arquivo, que o GitHub não faz no navegador.
 
 `src/data/gallery.generated.ts` é **gerado** por:
 
 ```bash
 npm run portfolio
+npm run portfolio:test    # cobre os erros de digitação mais prováveis
 ```
 
 O script não usa nenhuma dependência externa: as dimensões das imagens são lidas
 direto do cabeçalho do arquivo (WebP, JPEG, PNG), então roda em qualquer máquina
-e no CI sem módulo nativo. Ele falha com mensagem em português quando encontra
-`projeto.json` inválido, pasta sem fotos ou formato não suportado (`.heic`,
-`.avif`) — em vez de descartar uma foto silenciosamente.
+e no CI sem módulo nativo.
+
+### Como reage a erro de digitação
+
+| Situação | O que acontece |
+|---|---|
+| `nome` de foto errado em `fotos.txt` | **avisa** e ignora a linha; publica normalmente |
+| `projeto.txt` vazio ou sem `nome:` | **avisa** e usa o nome da pasta; publica normalmente |
+| foto nova sem linha no `fotos.txt` | **avisa** e põe no fim do projeto |
+| `.heic` / `.avif` | **trava**, com instrução de converter (foto quebrada no ar é pior que build vermelho) |
+| pasta sem nenhuma foto | **trava**, com instrução de apagar a pasta |
+
+Ou seja: erro de texto nunca derruba o site; só formato de imagem inválido
+trava, e sempre com a explicação do que fazer.
 
 ### Automação
 

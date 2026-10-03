@@ -1,17 +1,17 @@
 # Como mexer nos projetos do portfólio
 
-Este guia é para quem **não é da área técnica**. Não precisa instalar nada,
-não precisa rodar comando nenhum. Você só mexe com pastas e fotos.
+Guia para quem **não é da área técnica** e vai fazer isso **pelo celular**.
+Não precisa instalar programa nenhum, não precisa rodar comando.
 
 ---
 
 ## Antes de tudo: acesso
 
-O repositório é **privado**. Só quem está como colaborador consegue abrir e
-alterar. Se você abriu o link e pediu senha, é porque ainda não tem acesso —
-peça para ser adicionado (o dono do projeto faz isso em 1 minuto).
+O repositório é **privado**. Só quem está como colaborador consegue abrir. Se
+você abriu o link e pediu senha, ainda não tem acesso — peça para ser adicionado.
 
-Depois de adicionado, entre em https://github.com/jassonmouragt-prog/lineareco
+Depois de adicionado, entre em:
+**https://github.com/jassonmouragt-prog/lineareco**
 
 ---
 
@@ -19,221 +19,175 @@ Depois de adicionado, entre em https://github.com/jassonmouragt-prog/lineareco
 
 > **Uma pasta = um projeto. As fotos dentro da pasta são as fotos desse projeto.**
 
-Tudo que você precisa está em `public/images/portfolio/`. Hoje são 7 pastas,
+Tudo que você mexe está em `public/images/portfolio/`. Hoje são 7 pastas,
 `projeto-01` até `projeto-07`.
 
 Cada pasta tem este formato:
 
 ```
 public/images/portfolio/projeto-01/
-├── 01.webp          ← capa do projeto (a foto grande)
+├── 01.webp          ← a capa do projeto
 ├── 02.webp
 ├── 03.webp
-└── projeto.json     ← opcional: nome, tipo e descrição das fotos
+├── projeto.txt      ← o nome e o tipo do projeto
+└── fotos.txt        ← a ordem das fotos
 ```
 
-Assim que você termina, **o site se atualiza sozinho** em uns 2 minutos.
-Não precisa avisar ninguém.
+Quando você terminar, **o site se atualiza sozinho** em uns 2 minutos.
 
 ---
 
-## Onde mexer
+## Os dois arquivos de texto
 
-### Opção A — GitHub Desktop (recomendada)
+Eles existem para serem fáceis de editar no celular. **Não têm chaves, vírgula,
+aspa nem colchete** — não existe erro de digitação que estrague o site.
 
-Baixe o [GitHub Desktop](https://desktop.github.com) (grátis, Windows e Mac).
-Com ele você mexe em pasta de verdade, no seu computador, e **consegue renomear
-arquivo** — que é o que permite trocar a capa de um projeto.
+**`projeto.txt`** — nome e tipo:
 
-O fluxo de sempre:
+```
+nome: Casamento Ana e Bruno
+tipo: Casamento
+```
 
-1. Abra o GitHub Desktop e clone o repositório (uma vez só).
-2. Sempre que for mexer, clique em **Fetch origin** para baixar as novidades.
-3. Altere os arquivos na pasta.
-4. Escreva o que você fez no campo de mensagem.
-5. Clique em **Commit to main** e depois em **Push origin**.
+**`fotos.txt`** — a ordem das fotos, **uma por linha**:
 
-O site publica sozinho em uns 2 minutos.
+```
+03.webp | Mesa de flores da entrada
+01.webp | Salão decorado
+02.webp | Mesa de doces
+```
 
-### Opção B — direto no navegador
+- A **primeira linha** é a capa do projeto.
+- O texto depois do `|` é a descrição da foto (o que o Google lê para
+  acessibilidade). Se deixar em branco, o site escreve uma descrição sozinho.
+- Para trocar a capa, **só mude a ordem das linhas**. Não precisa renomear nada.
 
-Funciona pelo site do GitHub, inclusive pelo celular. Serve para **adicionar,
-remover e trocar fotos**. Commit: clique em **Commit changes** (botão verde).
-
-**Limitação importante:** o navegador do GitHub **não sabe renomear arquivo**.
-Então tudo que depender de renomear — principalmente *trocar qual foto é a
-capa* e *mudar a ordem* — só dá para fazer pela Opção A.
-
-| Ação | Navegador | GitHub Desktop |
-|---|---|---|
-| Adicionar fotos | sim | sim |
-| Remover foto | sim | sim |
-| Trocar foto por outra | sim | sim |
-| Criar projeto novo | sim | sim |
-| Apagar projeto | sim | sim |
-| **Trocar a capa** | **não** | sim |
-| **Mudar a ordem** | **não** | sim |
-
-No navegador, para trocar a capa: apague as fotos da pasta, baixe-as, renomeie
-no seu computador e suba de novo com os nomes na ordem desejada.
+> Linhas que começam com `#` são ignoradas — pode usar para anotar.
 
 ---
 
-## Colocar mais fotos num projeto que já existe
+## As 5 coisas que você vai fazer
 
-1. Entre na pasta do projeto (ex.: `projeto-03`).
+### 1. Trocar as fotos de um projeto
+
+1. Abra a pasta do projeto no GitHub (no celular funciona normal).
 2. **Add file** → **Upload files**.
-3. Arraste as fotos novas.
-4. Renomeie cada foto para o próximo número:
-   - o projeto tem `01`, `02`, `03` → a nova se chama **`04`**
-   - o projeto tem `01` a `09` → a nova se chama **`10`**
-5. Commite.
+3. Escolha as fotos do seu celular.
+4. Renomeie cada uma para o próximo número: se já tem `01` a `03`, a nova é
+   **`04`**.
+5. Toque em **Commit changes** (botão verde).
 
-**A ordem das fotos é a ordem do nome.** `01` é sempre a capa.
+Pronto. A foto entra no site sozinha.
 
----
+### 2. Tirar uma foto
 
-## Trocar a ordem das fotos
+Toque no arquivo e depois no **lixeira** que aparece. Commit.
 
-É só mudar o **número** no nome do arquivo. Exemplo: você quer que a mesa de
-flores (`03.webp`) seja a capa.
+### 3. Trocar qual foto é a capa
 
-1. Renomeie `03.webp` para `01.webp`.
-2. Renomeie o antigo `01.webp` para `03.webp`.
+Abra o `fotos.txt` e **mude a ordem das linhas**. Só isso.
 
-Funciona com qualquer troca. **Só dá para fazer no GitHub Desktop** (Opção A) —
-o navegador não renomeia arquivo. Se preferir evitar conflito de nomes: renomeie
-o `03` para `01-temp`, o `01` para `03`, e o `01-temp` para `01`.
+Quer a `03.webp` como capa? Mova a linha dela para o topo:
 
-Pelo navegador (Opção B), apague as fotos, renomeie no seu computador e suba de
-novo com os nomes na ordem certa.
+```
+03.webp | Mesa de flores da entrada
+01.webp | Salão decorado
+02.webp | Mesa de doces
+```
 
----
+Toque no lápis de edição, mude, e faça o commit.
 
-## Tirar uma foto
+### 4. Mudar o nome do projeto
 
-Selecione o arquivo e clique no **lixeira** que aparece. Commite.
+Abra o `projeto.txt` e mude a palavra depois de `nome:`:
 
----
+```
+nome: Casamento Ana e Bruno
+tipo: Casamento
+```
 
-## Criar um projeto novo
+Commit.
 
-1. Na pasta `portfolio`, clique em **Add file** → **Create new file**.
-2. Escreva o nome da pasta, por exemplo: `projeto-08`
-3. Crie o arquivo `projeto-08/nao-apague-este-arquivo.txt` com qualquer
-   texto dentro (o GitHub só cria arquivos, não pastas vazias).
-4. Commite.
-5. Entre na pasta `projeto-08` que acabou de ser criada e **Upload files**
-   com as suas fotos (`01.webp`, `02.webp`, ...).
-6. Commite de novo.
+### 5. Criar um projeto novo
 
-O novo projeto entra no site **no fim da lista**, com a numeração
-recalculada sozinha. Se você quiser ele em outra posição, me avise que eu
-reordeno (a ordem das pastas é o que decide).
+1. Em `public/images/portfolio`, toque **Add file** → **Create new file**.
+2. No nome, escreva o caminho: `projeto-08/placeholder.txt`
+3. Escreva qualquer coisa no conteúdo e faça o commit. Isso cria a pasta.
+4. Entre na pasta `projeto-08` que acabou de aparecer e faça **Upload files**
+   com as fotos (`01.webp`, `02.webp`...).
+5. Crie o `projeto.txt` da mesma forma, com `nome:` e `tipo:`.
+6. Commit.
 
----
+O novo projeto entra no site **no fim da lista** e a numeração
+(`PROJETO 01`, `PROJETO 02`...) se recalcula sozinha.
 
-## Apagar um projeto inteiro
+### 6. Apagar um projeto
 
-1. Entre na pasta do projeto.
-2. Apague as fotos e o `projeto.json`.
-3. Saia da pasta e apague a pasta.
-4. Commite.
-
-Pode apagar sem medo: as fotos do Hero, do Sobre e do Rodapé são cópias
+Entre na pasta, apague as fotos e os dois `.txt`, depois apague a pasta.
+Commit. Pode apagar sem medo: as fotos do Hero, do Sobre e do Rodapé são cópias
 independentes e **não quebram**.
 
 ---
 
-## Mudar o nome e a descrição do projeto
+## Foto de iPhone dá problema
 
-Abra o `projeto.json` de dentro da pasta do projeto e edite o texto:
+`.heic` **não funciona** e o site avisa que não conseguiu publicar (ele não
+arrisca colocar uma foto quebrada no ar).
 
-```json
-{
-  "title": "Casamento Ana e Bruno",
-  "category": "Casamento",
-  "alts": {
-    "01.webp": "Mesa do casamento com arranjos dourados",
-    "02.webp": "Mesa de doces do casamento"
-  }
-}
-```
+Como converter, no próprio iPhone:
 
-- `title` — o nome que aparece no site.
-- `category` — o tipo (Casamento, Aniversário, Chá, Formatura...).
-- `alts` — a descrição de cada foto. Começa com o nome do arquivo **sem a
-  extensão** e dois pontos, e o texto é o que o Google lê para acessibilidade.
-  Se você apagar uma foto do `alts`, o site escreve uma descrição automática
-  e continua funcionando.
+> Abrir a foto → **Compartilhar** → **Salvar imagem**. Isso salva como `.jpg`,
+> que funciona.
 
-Cuidado ao editar JSON: **vírgula sobrando no fim** quebra o arquivo. Se
-acontecer, o site avisa o erro exato no GitHub e nada é publicado — é só
-arrumar e commitar de novo.
-
-Se você não mexer no `projeto.json`, tudo funciona do mesmo jeito: o site usa
-o nome da pasta como título e cria as descrições sozinho.
+Formatos que funcionam: `.jpg`, `.jpeg`, `.webp`, `.png`.
+Tamanho: até 300 KB por foto, lado maior até 2000 px.
 
 ---
 
-## Sobre os arquivos de foto
+## Se algo der errado
 
-| | |
+**O site não mudou depois do commit.** Espere 2 minutos e recarregue inclinando
+o celular para baixo (isso ignora o cache). Se persistir, veja no GitHub a aba
+**Actions** → **Sincronizar portfólio**: se aparecer um losango vermelho, ele
+escreve o que deu errado.
+
+**Apareceu um losango vermelho.** Abra o arquivo que ele apontou e confira:
+
+| O que ele disse | O que fazer |
 |---|---|
-| Formatos aceitos | `.webp`, `.jpg`, `.jpeg`, `.png` |
-| Formatos que **não** funcionam | `.heic` (iPhone), `.avif` |
-| Tamanho recomendado | até 300 KB por foto |
-| Lado maior | até 2000 px |
+| `não é uma imagem suportada` | A foto está em `.heic`. Salve como `.jpg` no iPhone e suba de novo. |
+| `não tem nenhuma foto` | A pasta ficou sem imagens. Suba ao menos uma. |
+| `cita "09.webp", que não está na pasta` | O nome em `fotos.txt` está errado ou a foto não foi upada. Apague a linha, ou suba a foto. **O site publicou assim mesmo.** |
+| `não está em fotos.txt` | Foto nova fora da lista. Ela entrou no fim do projeto. Abra o `fotos.txt` e acrescente a linha dela no lugar certo. |
+| `caiu no nome da pasta` | O `projeto.txt` está vazio ou sem `nome:`. Reescreva a linha. |
 
-**Foto de iPhone (`.heic`)?** Abra no iPhone, toque na foto → Compartilhar →
-Salvar imagem. Isso já salva como `.jpg`, que funciona.
+Os dois últimos são **avisos, não erros**: o site publicou normalmente.
+
+**A foto ficou cortada feia.** É quando a foto é muito horizontal e o quadro é
+vertical. Me chame que eu ajusto o enquadramento.
 
 ---
 
 ## O que **não** mexer
 
-Não edite nada nesta lista — é gerado ou controlado por código:
-
-- `src/data/gallery.generated.ts` — é gerado automaticamente
+- `src/data/gallery.generated.ts` — gerado automaticamente
 - `src/data/images.ts` — imagens do Hero, Sobre e Rodapé
-- `src/components/` e `src/app/`
-- `package.json`
+- `src/components/`, `src/app/`, `package.json`
 
-Se você editou a pasta de projeto e o site não mudou, veja
-[Resolvendo problemas](#resolvendo-problemas).
+Você nunca precisa abrir nada nessa lista.
 
 ---
 
-## Resolvendo problemas
+## Resumo
 
-**O site não mudou depois do commit.**
-Espere 2 minutos e recarregue com `Ctrl + Shift + R` (ignora o cache).
-Se persistir, veja a aba **Actions** no GitHub, na aba **Sincronizar
-portfólio**: se aparecer um losango vermelho, ele explica o que está errado.
-
-**Apareceu um erro vermelho após mexer no `projeto.json`.**
-Quase sempre é vírgula sobrando ou faltando. Abra o arquivo, confira que só
-tem vírgula **entre** os itens, e nunca depois do último.
-
-**Mandei a foto e ela não aparece.**
-Confira o formato (tem que ser `.jpg`/`.webp`/`.png`) e o nome (tem que
-começar com número, como `05.webp`).
-
-**A foto ficou cortada feia.**
-Isso acontece quando a foto é muito horizontal e o quadro é vertical.
-Me chame que eu ajusto o enquadramento daquela foto.
-
----
-
-## Resumo rápido
-
-| Quero... | O que faço |
+| Quero... | Como faço |
 |---|---|
-| Trocar as fotos de um projeto | Substituo os arquivos dentro da pasta |
-| Adicionar fotos | Subo com o próximo número (`05`, `06`...) |
-| Mudar qual foto é a capa | Mudo o número do nome do arquivo |
-| Adicionar um projeto | Crio a pasta nova e subo as fotos |
-| Remover um projeto | Apago a pasta |
-| Mudar nome/tipo do projeto | Edito o `projeto.json` |
+| Trocar as fotos de um projeto | Substituo os arquivos na pasta |
+| Adicionar fotos | Subo com o próximo número (`04`, `05`...) |
+| Tirar uma foto | Apago o arquivo |
+| **Trocar a capa** | **Mudo a ordem das linhas do `fotos.txt`** |
+| **Mudar o nome do projeto** | **Edito a linha `nome:` do `projeto.txt`** |
+| Criar um projeto | Crio a pasta e subo as fotos |
+| Apagar um projeto | Apago a pasta |
 
-Em todos os casos: **é só dar commit no GitHub.**
+Em todos os casos: **é só tocar em commit no GitHub.**
