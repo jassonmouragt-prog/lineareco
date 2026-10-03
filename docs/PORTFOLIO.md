@@ -5,6 +5,16 @@ não precisa rodar comando nenhum. Você só mexe com pastas e fotos.
 
 ---
 
+## Antes de tudo: acesso
+
+O repositório é **privado**. Só quem está como colaborador consegue abrir e
+alterar. Se você abriu o link e pediu senha, é porque ainda não tem acesso —
+peça para ser adicionado (o dono do projeto faz isso em 1 minuto).
+
+Depois de adicionado, entre em https://github.com/jassonmouragt-prog/lineareco
+
+---
+
 ## A regra inteira é uma
 
 > **Uma pasta = um projeto. As fotos dentro da pasta são as fotos desse projeto.**
@@ -27,20 +37,45 @@ Não precisa avisar ninguém.
 
 ---
 
-## Onde mexer no GitHub
+## Onde mexer
 
-1. Abra o repositório no GitHub (pode fazer pelo celular).
-2. Toque na pasta `public` → `images` → `portfolio`.
-3. Entre na pasta do projeto que você quer mexer.
-4. Faça a alteração.
-5. Clique em **Commit changes** (o botão verde).
+### Opção A — GitHub Desktop (recomendada)
 
-Pronto. O site publica sozinho.
+Baixe o [GitHub Desktop](https://desktop.github.com) (grátis, Windows e Mac).
+Com ele você mexe em pasta de verdade, no seu computador, e **consegue renomear
+arquivo** — que é o que permite trocar a capa de um projeto.
 
-> **Dica:** a opção mais fácil de arrastar several fotos de uma vez é usar o
-> [GitHub Desktop](https://desktop.github.com) — é um programa gratuito que
-> mostra as pastas como pasta de verdade no seu computador. Se preferir o
-> navegador mesmo, funciona igual, só que precisa arrastar uma por vez.
+O fluxo de sempre:
+
+1. Abra o GitHub Desktop e clone o repositório (uma vez só).
+2. Sempre que for mexer, clique em **Fetch origin** para baixar as novidades.
+3. Altere os arquivos na pasta.
+4. Escreva o que você fez no campo de mensagem.
+5. Clique em **Commit to main** e depois em **Push origin**.
+
+O site publica sozinho em uns 2 minutos.
+
+### Opção B — direto no navegador
+
+Funciona pelo site do GitHub, inclusive pelo celular. Serve para **adicionar,
+remover e trocar fotos**. Commit: clique em **Commit changes** (botão verde).
+
+**Limitação importante:** o navegador do GitHub **não sabe renomear arquivo**.
+Então tudo que depender de renomear — principalmente *trocar qual foto é a
+capa* e *mudar a ordem* — só dá para fazer pela Opção A.
+
+| Ação | Navegador | GitHub Desktop |
+|---|---|---|
+| Adicionar fotos | sim | sim |
+| Remover foto | sim | sim |
+| Trocar foto por outra | sim | sim |
+| Criar projeto novo | sim | sim |
+| Apagar projeto | sim | sim |
+| **Trocar a capa** | **não** | sim |
+| **Mudar a ordem** | **não** | sim |
+
+No navegador, para trocar a capa: apague as fotos da pasta, baixe-as, renomeie
+no seu computador e suba de novo com os nomes na ordem desejada.
 
 ---
 
@@ -60,16 +95,18 @@ Pronto. O site publica sozinho.
 
 ## Trocar a ordem das fotos
 
-É só mudar o **número** no nome do arquivo.
-
-Desejo: a capa é a mesa de flores (`03.webp`).
+É só mudar o **número** no nome do arquivo. Exemplo: você quer que a mesa de
+flores (`03.webp`) seja a capa.
 
 1. Renomeie `03.webp` para `01.webp`.
 2. Renomeie o antigo `01.webp` para `03.webp`.
 
-Funciona com qualquer troca. O GitHub não deixa dois arquivos com o mesmo
-nome na mesma pasta, então **troque um de cada vez** (renomeie o `03` para
-`01-temp`, depois o `01` para `03`, depois o `01-temp` para `01`).
+Funciona com qualquer troca. **Só dá para fazer no GitHub Desktop** (Opção A) —
+o navegador não renomeia arquivo. Se preferir evitar conflito de nomes: renomeie
+o `03` para `01-temp`, o `01` para `03`, e o `01-temp` para `01`.
+
+Pelo navegador (Opção B), apague as fotos, renomeie no seu computador e suba de
+novo com os nomes na ordem certa.
 
 ---
 
