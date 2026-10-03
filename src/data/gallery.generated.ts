@@ -28,7 +28,7 @@ export const portfolioProjects: PortfolioProject[] = [
   {
     id: "projeto-01",
     label: "PROJETO 01",
-    title: "Projeto 01",
+    title: "Projeto Casamento",
     category: "Celebração",
     photos: [
     {
