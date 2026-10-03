@@ -1,2 +1,2 @@
-nome: Projeto 01
+nome: Projeto Casamento
 tipo: Celebração
