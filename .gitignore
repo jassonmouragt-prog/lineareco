@@ -30,8 +30,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
+# A excecao tem de vir depois do padrao, e nao pode existir outro .env* abaixo,
+# senao ele volta a ignorar o .env.example.
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,5 +43,3 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
-.env*

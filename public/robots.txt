@@ -1,0 +1,6 @@
+# O painel /admin nunca deve entrar em índice de busca.
+# O proxy já exige sessão, mas robots avisa os buscadores antes mesmo.
+
+User-agent: *
+Disallow: /admin
+Disallow: /admin/

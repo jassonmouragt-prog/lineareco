@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "portfolio": "node scripts/build-portfolio.mjs",
-    "portfolio:test": "node scripts/build-portfolio.test.mjs"
+    "portfolio:test": "node scripts/build-portfolio.test.mjs",
+    "admin:senha": "node scripts/admin-password.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
