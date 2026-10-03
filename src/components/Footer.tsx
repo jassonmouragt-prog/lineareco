@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { Check, MapPin } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL, whatsappLink } from "@/data/site";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, BRAND_NAME, BRAND_NAME_UPPER, whatsappLink } from "@/data/site";
 import { images } from "@/data/images";
-import { galleryImages } from "@/data/gallery";
+import { portfolioProjects } from "@/data/gallery";
 
 const footerFeatures = [
   "Resposta rápida",
@@ -20,7 +20,7 @@ const InstagramIcon = ({ className, ...props }: { className?: string }) => (
 );
 
 export default function Footer() {
-  const thumbs = galleryImages.slice(0, 4);
+  const thumbs = portfolioProjects.slice(0, 4).map((project) => project.photos[0]);
 
   return (
     <footer id="footer" className="bg-ink">
@@ -43,19 +43,19 @@ export default function Footer() {
           />
 
           <div className="relative mx-auto max-w-[1400px] px-[5%] pt-[80px] pb-16 md:pt-[90px]">
-            <div className="grid gap-12 md:grid-cols-[25%_20%_55%] md:gap-10">
+            <div className="grid gap-12 md:grid-cols-[1.05fr_0.6fr_1.65fr] md:gap-10">
               <div>
                 <Reveal>
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                     <Image
                       src="/logo.png"
-                      alt="Lineareco — Decoração e eventos"
+                      alt={`${BRAND_NAME} — Decoração e eventos`}
                       width={40}
                       height={40}
                       className="h-10 w-10 object-contain"
                     />
-                    <span className="font-serif text-[22px] tracking-[0.16em] text-white">
-                      LINEARECO
+                    <span className="font-serif text-[15px] leading-tight tracking-[0.1em] whitespace-nowrap text-white sm:text-[18px]">
+                      {BRAND_NAME_UPPER}
                     </span>
                   </div>
                   <p className="mt-5 text-[13px] leading-[1.7] text-white/65">
@@ -156,7 +156,7 @@ export default function Footer() {
         <div className="border-t border-white/10 bg-[#0d0f10]">
           <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-5 px-[5%] py-5">
             <p className="text-[12px] text-white/45">
-              © 2024 Lineareco. Todos os direitos reservados.
+              © 2026 {BRAND_NAME} Todos os direitos reservados.
             </p>
             <div className="flex gap-2.5">
               {thumbs.map((img) => (

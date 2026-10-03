@@ -6,7 +6,7 @@ const icons = [PencilLine, Diamond, Users, Crown];
 
 export default function Differentials() {
   return (
-    <section className="bg-offwhite">
+    <section id="differentials" className="bg-offwhite">
       <div className="mx-auto max-w-[1400px] px-[5%] py-[80px] md:py-[96px]">
         <div className="flex flex-col items-center text-center">
           <Reveal>

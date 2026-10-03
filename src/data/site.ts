@@ -1,9 +1,12 @@
+export const BRAND_NAME = "Linear & Co.";
+export const BRAND_NAME_UPPER = "LINEAR & CO.";
+
 export const WHATSAPP_NUMBER = "5584999999999";
 export const INSTAGRAM_HANDLE = "@lineareco";
 export const INSTAGRAM_URL = "https://www.instagram.com/lineareco";
 
 export const WHATSAPP_DEFAULT_MESSAGE =
-  "Olá! Quero solicitar um orçamento da Lineareco.";
+  "Olá! Quero solicitar um orçamento da Linear & Co.";
 
 export function whatsappLink(
   message: string = WHATSAPP_DEFAULT_MESSAGE,
@@ -12,9 +15,9 @@ export function whatsappLink(
 }
 
 export const NAV_LINKS = [
-  { label: "Nossos eventos", href: "#gallery" },
-  { label: "Decoração", href: "#about" },
-  { label: "Sobre nós", href: "#about" },
-  { label: "Galeria", href: "#gallery" },
+  { label: "Portfólio", href: "#portfolio" },
+  { label: "Sobre", href: "#about" },
+  { label: "Diferenciais", href: "#differentials" },
+  { label: "Depoimentos", href: "#testimonials" },
   { label: "Contato", href: "#footer" },
 ] as const;

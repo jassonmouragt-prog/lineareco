@@ -3,19 +3,24 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { NAV_LINKS, whatsappLink } from "@/data/site";
+import {
+  BRAND_NAME,
+  BRAND_NAME_UPPER,
+  NAV_LINKS,
+  whatsappLink,
+} from "@/data/site";
 
 const Logo = () => (
   <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
     <Image
       src="/logo.png"
-      alt="Lineareco — Decoração e eventos"
+      alt={`${BRAND_NAME} — Decoração e eventos`}
       width={40}
       height={40}
       className="h-10 w-10 object-contain"
     />
-    <span className="font-serif text-base tracking-[0.18em] text-white sm:text-xl">
-      LINEARECO
+    <span className="font-serif text-[13px] tracking-[0.16em] whitespace-nowrap text-white sm:text-[17px]">
+      {BRAND_NAME_UPPER}
     </span>
   </a>
 );

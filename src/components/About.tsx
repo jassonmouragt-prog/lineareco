@@ -13,7 +13,7 @@ export default function About() {
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
             <Reveal>
               <span className="text-[10px] font-semibold tracking-[0.24em] text-taupe">
-                SOBRE A LINEARECO
+                SOBRE A LINEAR &amp; CO.
               </span>
             </Reveal>
 
