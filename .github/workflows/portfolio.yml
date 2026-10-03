@@ -1,0 +1,50 @@
+name: Sincronizar portfólio
+
+# Roda sozinho sempre que alguém mexe nas pastas de projeto, para o cliente
+# não precisar de terminal. Gera src/data/gallery.generated.ts e commita.
+#
+# O filtro de paths é o que impede o ciclo: o commit automático só altera
+# src/data/gallery.generated.ts, que não está neste filtro, então a action
+# não se re-dispara sozinha.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "public/images/portfolio/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portfolio-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # O script usa só o Node: não precisa de npm install.
+      - name: Gerar o portfólio
+        run: node scripts/build-portfolio.mjs
+
+      - name: Commitar se houver mudança
+        run: |
+          if git diff --quiet -- src/data/gallery.generated.ts; then
+            echo "Nada a atualizar."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- src/data/gallery.generated.ts
+          git commit -m "chore: sincroniza portfólio com as pastas de fotos"
+          git pull --rebase --autostash origin master
+          git push origin HEAD:master
