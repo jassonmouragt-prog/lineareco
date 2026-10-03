@@ -64,16 +64,10 @@ export const portfolioProjects: PortfolioProject[] = [
     category: "Celebração",
     photos: [
     {
-      src: "/images/portfolio/projeto-02/01.webp",
-      alt: "Decoração de evento produzida pela Linear & Co.",
-      width: 1500,
-      height: 2000,
-    },
-    {
-      src: "/images/portfolio/projeto-02/02.webp",
-      alt: "Ambiente de celebração preparado pela Linear & Co.",
-      width: 1500,
-      height: 2000,
+      src: "/images/portfolio/projeto-02/04.webp",
+      alt: "Detalhe de decoração de evento da Linear & Co.",
+      width: 887,
+      height: 1183,
     },
     {
       src: "/images/portfolio/projeto-02/03.webp",
@@ -82,10 +76,16 @@ export const portfolioProjects: PortfolioProject[] = [
       height: 1280,
     },
     {
-      src: "/images/portfolio/projeto-02/04.webp",
-      alt: "Detalhe de decoração de evento da Linear & Co.",
-      width: 887,
-      height: 1183,
+      src: "/images/portfolio/projeto-02/02.webp",
+      alt: "Ambiente de celebração preparado pela Linear & Co.",
+      width: 1500,
+      height: 2000,
+    },
+    {
+      src: "/images/portfolio/projeto-02/01.webp",
+      alt: "Decoração de evento produzida pela Linear & Co.",
+      width: 1500,
+      height: 2000,
     },
     ],
   },
