@@ -12,7 +12,7 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
 const FOLDER = "public/images/portfolio/projeto-02";
 const SAMPLE = "public/images/portfolio/projeto-07/01.webp";
@@ -129,6 +129,24 @@ try {
 
 const restored = run();
 check("estado restaurado ao final", restored.code === 0 && restored.out.includes("7 projeto(s), 27 foto(s)"));
+
+// public/ e um detalhe do repositorio, nao da URL. Se vazar para o src, o site
+// e o painel respondem 404 e a foto aparece quebrada.
+const semPublic = generated().match(/src: "[^"]*\/public\/[^"]*"/g) ?? [];
+check(
+  "nenhum src com /public/ (a imagem quebraria com 404)",
+  semPublic.length === 0,
+  semPublic.slice(0, 3).join(" | "),
+);
+
+// A URL /images/x aponta para o arquivo public/images/x no disco.
+const srcs = [...generated().matchAll(/src: "(\/[^"]+)"/g)].map((m) => m[1]);
+const inexistentes = srcs.filter((src) => !existsSync(`public${src}`));
+check(
+  "todo src aponta para um arquivo que existe",
+  inexistentes.length === 0,
+  inexistentes.slice(0, 3).join(" | "),
+);
 
 console.log(`\n${passed} passaram, ${failed} falharam`);
 process.exit(failed === 0 ? 0 : 1);

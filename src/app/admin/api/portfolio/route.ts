@@ -12,6 +12,7 @@ import {
   mergeOrder,
   parseInfo,
   parsePhotoList,
+  publicUrl,
   serializeInfo,
   serializePhotoList,
 } from "@/lib/admin/portfolio";
@@ -41,7 +42,7 @@ export async function readPortfolio(): Promise<AdminProject[]> {
         return {
           file: entry.file,
           alt: entry.alt,
-          src: `/${base}/${entry.file}`,
+          src: publicUrl(`${base}/${entry.file}`),
           bytes: file ? Math.floor((file.base64.length * 3) / 4) : 0,
         };
       }),

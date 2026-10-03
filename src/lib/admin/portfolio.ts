@@ -14,6 +14,18 @@ export const INFO_FILE = "projeto.txt";
 export const ORDER_FILE = "fotos.txt";
 export const FOLDER_PREFIX = "public/images/portfolio";
 
+/**
+ * Converte um caminho do repositorio na URL publica do site.
+ *
+ * O "public/" e um detalhe do repositorio, nao da URL: a foto em
+ * public/images/portfolio/projeto-01/01.webp e servida em
+ * /images/portfolio/projeto-01/01.webp. Esquecer de tirar o prefixo devolve 404
+ * e a miniatura aparece quebrada no painel.
+ */
+export function publicUrl(repoPath: string): string {
+  return `/${repoPath.replace(/^public\//, "")}`;
+}
+
 export const PHOTO_EXTENSIONS = [".webp", ".jpg", ".jpeg", ".png"] as const;
 
 export interface PhotoEntry {

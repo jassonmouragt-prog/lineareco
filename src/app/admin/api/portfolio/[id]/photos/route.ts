@@ -10,6 +10,7 @@ import {
   mergeOrder,
   nextPhotoName,
   parsePhotoList,
+  publicUrl,
   serializePhotoList,
 } from "@/lib/admin/portfolio";
 
@@ -185,7 +186,7 @@ export async function POST(request: Request, context: Context): Promise<NextResp
     );
 
     return NextResponse.json(
-      { ok: true, file: fileName, src: `/${base}/${fileName}`, width: size.width, height: size.height },
+      { ok: true, file: fileName, src: publicUrl(`${base}/${fileName}`), width: size.width, height: size.height },
       { status: 201 },
     );
   } catch (error) {
