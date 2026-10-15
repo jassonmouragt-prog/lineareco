@@ -38,12 +38,6 @@ export const portfolioProjects: PortfolioProject[] = [
       height: 2000,
     },
     {
-      src: "/images/portfolio/projeto-01/02.webp",
-      alt: "Mesa decorada pela Linear & Co. com arranjos e ornamentos.",
-      width: 1500,
-      height: 2000,
-    },
-    {
       src: "/images/portfolio/projeto-01/03.webp",
       alt: "Mesa de evento decorada com detalhes pela Linear & Co.",
       width: 1500,
