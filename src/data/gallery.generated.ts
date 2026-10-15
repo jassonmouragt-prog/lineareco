@@ -43,12 +43,6 @@ export const portfolioProjects: PortfolioProject[] = [
       width: 1500,
       height: 2000,
     },
-    {
-      src: "/images/portfolio/projeto-01/04.webp",
-      alt: "Cenário de celebração projetado pela Linear & Co.",
-      width: 1500,
-      height: 2000,
-    },
     ],
   },
   {
